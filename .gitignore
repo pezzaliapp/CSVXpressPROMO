@@ -1,0 +1,20 @@
+# OS
+.DS_Store
+Thumbs.db
+
+# Editor
+.vscode/
+.idea/
+
+# Node (non usato, ma per sicurezza)
+node_modules/
+npm-debug.log*
+
+# Claude Code locale (NON committare permessi/sessione locali)
+.claude/settings.local.json
+.claude/.session*
+
+# Temporanei
+*.log
+*.tmp
+*.bak

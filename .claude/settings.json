@@ -1,0 +1,59 @@
+{
+  "$schema": "https://json.schemastore.org/claude-code-settings.json",
+  "permissions": {
+    "defaultMode": "acceptEdits",
+    "allow": [
+      "Read(./**)",
+      "Edit(./index.html)",
+      "Edit(./promo.js)",
+      "Edit(./promo.css)",
+      "Edit(./loaders-extra.js)",
+      "Edit(./admin.html)",
+      "Edit(./admin.js)",
+      "Edit(./admin-styles.css)",
+      "Edit(./manifest.json)",
+      "Edit(./service-worker.js)",
+      "Edit(./version.json)",
+      "Edit(./README.md)",
+      "Edit(./CLAUDE.md)",
+      "Edit(./promo/promo.json)",
+      "Write(./promo/**)",
+      "Bash(python3 -m http.server:*)",
+      "Bash(npx serve:*)",
+      "Bash(git status:*)",
+      "Bash(git add:*)",
+      "Bash(git commit:*)",
+      "Bash(git diff:*)",
+      "Bash(git log:*)",
+      "Bash(git restore:*)",
+      "Bash(git branch:*)",
+      "Bash(git checkout:*)",
+      "Bash(git switch:*)",
+      "Bash(node --check:*)",
+      "Bash(ls:*)",
+      "Bash(cat:*)",
+      "Bash(grep:*)",
+      "Bash(find:*)"
+    ],
+    "deny": [
+      "Edit(./app.js)",
+      "Write(./app.js)",
+      "Read(./.env)",
+      "Read(./**/*.pem)",
+      "Read(./**/secrets/**)",
+      "Bash(rm -rf:*)",
+      "Bash(rm -r:*)",
+      "Bash(git push --force:*)",
+      "Bash(git push -f:*)",
+      "Bash(git reset --hard:*)",
+      "Bash(git clean:*)",
+      "Bash(curl:*)",
+      "Bash(wget:*)",
+      "Bash(sudo:*)"
+    ],
+    "ask": [
+      "Bash(git push:*)",
+      "Bash(rm:*)"
+    ]
+  }
+}

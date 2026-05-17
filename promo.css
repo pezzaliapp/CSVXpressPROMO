@@ -1,0 +1,289 @@
+/* ============================================================
+   CSVXpressPROMO — promo.css
+   Stili SCOPED con prefisso .cxp- : non interferiscono con
+   style.css / style.mobile.cards.rev.v3.css di CSVXpress.
+   ============================================================ */
+
+:root {
+  --cxp-accent: #2196f3;
+  --cxp-surface: #ffffff;
+  --cxp-surface-2: #f4f6fb;
+  --cxp-border: #d8dee9;
+  --cxp-text: #0b0f14;
+  --cxp-text-muted: #5b6472;
+  --cxp-danger: #d33;
+  --cxp-success: #2e7d32;
+  --cxp-warning: #b26a00;
+  --cxp-radius: 12px;
+}
+@media (prefers-color-scheme: dark) {
+  :root {
+    --cxp-surface: #121821;
+    --cxp-surface-2: #0b0f14;
+    --cxp-border: #2a3340;
+    --cxp-text: #e7edf5;
+    --cxp-text-muted: #9aa6b5;
+  }
+}
+
+/* ---- Nav a sezioni (ancore interne, non SPA) ---- */
+.cxp-nav {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin: 14px 0;
+}
+.cxp-nav a {
+  text-decoration: none;
+  padding: 8px 14px;
+  border: 1px solid var(--cxp-border);
+  border-radius: 999px;
+  background: var(--cxp-surface);
+  color: var(--cxp-text);
+  font-size: 14px;
+  min-height: 40px;
+  display: inline-flex;
+  align-items: center;
+}
+.cxp-nav a:hover { border-color: var(--cxp-accent); }
+
+/* ---- Sezione PROMO ---- */
+.cxp-section {
+  margin: 22px 0;
+  padding: 16px;
+  border: 1px solid var(--cxp-border);
+  border-radius: var(--cxp-radius);
+  background: var(--cxp-surface);
+}
+.cxp-section h2 { margin: 0 0 6px; }
+.cxp-muted { color: var(--cxp-text-muted); font-size: 14px; margin: 0 0 10px; }
+.cxp-row-flex {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  align-items: center;
+  margin-bottom: 10px;
+}
+.cxp-row-flex button {
+  min-height: 40px;
+  padding: 8px 14px;
+  border-radius: 8px;
+  border: 1px solid var(--cxp-border);
+  background: var(--cxp-surface-2);
+  color: var(--cxp-text);
+  cursor: pointer;
+  font-size: 14px;
+}
+.cxp-row-flex button:hover { border-color: var(--cxp-accent); }
+
+.cxp-promo-grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 12px;
+}
+@media (min-width: 720px) {
+  .cxp-promo-grid { grid-template-columns: 1fr 1fr; }
+}
+.cxp-promo {
+  border: 1px solid var(--cxp-border);
+  border-radius: var(--cxp-radius);
+  background: var(--cxp-surface-2);
+  padding: 14px;
+  cursor: pointer;
+  transition: transform .12s ease, border-color .12s ease;
+}
+.cxp-promo:hover { transform: translateY(-1px); border-color: var(--cxp-accent); }
+.cxp-promo:focus-visible { outline: 2px solid var(--cxp-accent); outline-offset: 2px; }
+.cxp-promo header {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  gap: 8px;
+}
+.cxp-promo h3 { margin: 0; font-size: 16px; }
+.cxp-desc {
+  color: var(--cxp-text-muted);
+  font-size: 14px;
+  margin-top: 8px;
+  white-space: pre-wrap;
+}
+.cxp-meta {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  margin-top: 10px;
+  font-size: 12px;
+  color: var(--cxp-text-muted);
+}
+.cxp-promo-actions { display: flex; gap: 6px; margin-top: 8px; }
+.cxp-empty {
+  padding: 18px;
+  text-align: center;
+  color: var(--cxp-text-muted);
+  border: 1px dashed var(--cxp-border);
+  border-radius: var(--cxp-radius);
+}
+.cxp-badge {
+  display: inline-block;
+  padding: 2px 8px;
+  font-size: 11px;
+  border-radius: 999px;
+  border: 1px solid var(--cxp-border);
+  color: var(--cxp-text-muted);
+  background: var(--cxp-surface);
+  white-space: nowrap;
+}
+.cxp-badge.local {
+  color: var(--cxp-accent);
+  border-color: var(--cxp-accent);
+  background: color-mix(in srgb, var(--cxp-accent) 14%, var(--cxp-surface));
+}
+
+/* ---- Bottoni generici scoped ---- */
+.cxp-primary, .cxp-ghost, .cxp-danger {
+  min-height: 40px;
+  padding: 8px 16px;
+  border-radius: 8px;
+  border: 1px solid var(--cxp-border);
+  cursor: pointer;
+  font-size: 14px;
+}
+.cxp-primary { background: var(--cxp-accent); color: #fff; border-color: var(--cxp-accent); }
+.cxp-ghost { background: transparent; color: var(--cxp-text); }
+.cxp-danger { background: var(--cxp-danger); color: #fff; border-color: var(--cxp-danger); }
+
+/* ---- Toast ---- */
+.cxp-toast-wrap {
+  position: fixed;
+  right: 16px;
+  bottom: 16px;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  z-index: 9999;
+  max-width: min(92vw, 380px);
+}
+.cxp-toast {
+  display: flex;
+  gap: 10px;
+  align-items: center;
+  background: var(--cxp-surface);
+  border: 1px solid var(--cxp-border);
+  border-left: 4px solid var(--cxp-accent);
+  border-radius: 10px;
+  padding: 10px 12px;
+  box-shadow: 0 6px 20px rgba(0, 0, 0, .18);
+}
+.cxp-toast.success { border-left-color: var(--cxp-success); }
+.cxp-toast.error { border-left-color: var(--cxp-danger); }
+.cxp-toast.warn { border-left-color: var(--cxp-warning); }
+.cxp-toast-msg { flex: 1; font-size: 14px; color: var(--cxp-text); }
+.cxp-toast button {
+  padding: 4px 10px;
+  min-height: 32px;
+  border: 1px solid var(--cxp-border);
+  background: var(--cxp-surface-2);
+  border-radius: 6px;
+  cursor: pointer;
+}
+
+/* ---- Modal ---- */
+.cxp-modal-backdrop {
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, .55);
+  display: none;
+  align-items: stretch;
+  justify-content: center;
+  z-index: 9998;
+}
+.cxp-modal-backdrop.open { display: flex; }
+.cxp-modal {
+  background: var(--cxp-surface);
+  width: 100%;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+}
+@media (min-width: 720px) {
+  .cxp-modal-backdrop { padding: 24px; }
+  .cxp-modal {
+    height: auto;
+    max-height: 90vh;
+    max-width: 920px;
+    border-radius: var(--cxp-radius);
+  }
+}
+.cxp-modal header {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 12px 14px;
+  border-bottom: 1px solid var(--cxp-border);
+}
+.cxp-modal header h3 { margin: 0; font-size: 16px; flex: 1; color: var(--cxp-text); }
+.cxp-modal .cxp-body {
+  flex: 1;
+  overflow: auto;
+  background: var(--cxp-surface-2);
+}
+.cxp-modal .cxp-body.padded { padding: 16px; }
+.cxp-modal .cxp-body img { display: block; max-width: 100%; height: auto; margin: 0 auto; }
+.cxp-modal > footer {
+  display: flex;
+  justify-content: space-between;
+  gap: 8px;
+  padding: 12px 14px;
+  border-top: 1px solid var(--cxp-border);
+  background: var(--cxp-surface);
+}
+
+/* ---- PDF viewer interno al modal ---- */
+.cxp-pdfwrap { display: flex; flex-direction: column; height: 100%; }
+.cxp-pdftoolbar {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  padding: 8px;
+  border-bottom: 1px solid var(--cxp-border);
+  background: var(--cxp-surface);
+  position: sticky;
+  top: 0;
+  z-index: 1;
+}
+.cxp-pdftoolbar button {
+  min-height: 36px;
+  min-width: 36px;
+  border: 1px solid var(--cxp-border);
+  background: var(--cxp-surface-2);
+  border-radius: 8px;
+  cursor: pointer;
+}
+.cxp-pdfind {
+  min-width: 64px;
+  text-align: center;
+  font-variant-numeric: tabular-nums;
+  color: var(--cxp-text);
+}
+.cxp-pdfstatus { padding: 16px; text-align: center; color: var(--cxp-text-muted); }
+.cxp-pdfcanvaswrap {
+  flex: 1;
+  overflow: auto;
+  padding: 12px;
+  display: flex;
+  justify-content: center;
+  align-items: flex-start;
+}
+.cxp-pdfcanvas {
+  max-width: 100%;
+  height: auto;
+  background: #fff;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, .2);
+}
+
+/* ---- Box loader Excel/PDF ---- */
+.cxp-extra-loader { margin-top: 12px; }
+.cxp-extra-loader input[type="file"] { display: block; margin: 8px 0; }
+#cxp-extra-status { font-size: 13px; opacity: .85; }
