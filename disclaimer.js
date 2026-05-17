@@ -59,6 +59,75 @@
       .filter((el) => el.offsetParent !== null || el === document.activeElement);
   }
 
+  /* ============================================================
+     visualViewport sync — fix iPhone Safari portrait
+     ============================================================
+     iOS Safari ha una toolbar inferiore dinamica (frecce / condividi /
+     tab) che NON viene esclusa dal layout viewport: un overlay
+     position:fixed a tutto schermo finisce graficamente SOTTO la
+     toolbar, e il suo footer (col bottone "Accedi") diventa
+     fisicamente intoccabile. Le unità `100dvh` / `100vh` non
+     risolvono perché si riferiscono comunque al layout viewport.
+
+     Soluzione: l'API `window.visualViewport` restituisce l'area
+     REALMENTE visibile, che ESCLUDE la toolbar Safari dinamica.
+     Inchiodiamo top/left/width/height dell'overlay a quei valori,
+     ricalcolando su:
+       - vv.resize       → toolbar che appare/scompare, keyboard, rotazione
+       - vv.scroll       → pinch-zoom + pan dell'utente
+       - orientationchange / window.resize → ridondanza di sicurezza
+     Sui browser senza l'API resta il fallback CSS (dvh / -webkit-fill-
+     available / vh) definito in disclaimer.css. */
+  function bindVisualViewport(overlay) {
+    const vv = window.visualViewport;
+    if (!vv) return function noop() {};
+    function sync() {
+      if (!overlay.isConnected) return;
+      const s = overlay.style;
+      s.top    = vv.offsetTop  + 'px';
+      s.left   = vv.offsetLeft + 'px';
+      s.width  = vv.width      + 'px';
+      s.height = vv.height     + 'px';
+    }
+    vv.addEventListener('resize', sync);
+    vv.addEventListener('scroll', sync);
+    window.addEventListener('orientationchange', sync);
+    window.addEventListener('resize', sync);
+    // Più tick: iOS aggiorna visualViewport in modo asincrono dopo il
+    // primo paint, soprattutto in PWA standalone e dopo la rotazione.
+    sync();
+    requestAnimationFrame(sync);
+    setTimeout(sync, 250);
+    return function detach() {
+      vv.removeEventListener('resize', sync);
+      vv.removeEventListener('scroll', sync);
+      window.removeEventListener('orientationchange', sync);
+      window.removeEventListener('resize', sync);
+    };
+  }
+
+  /* Body scroll lock mentre l'overlay è aperto. Evita che iOS scrolli
+     la pagina dietro l'overlay: lo scroll della pagina è proprio ciò
+     che fa apparire/scomparire la toolbar Safari, e riapparirebbe il
+     problema dell'area inferiore inaccessibile. */
+  let _htmlOverflowBackup = null;
+  let _bodyOverflowBackup = null;
+  function lockBodyScroll() {
+    _htmlOverflowBackup = document.documentElement.style.overflow;
+    _bodyOverflowBackup = document.body.style.overflow;
+    document.documentElement.style.overflow = 'hidden';
+    document.body.style.overflow = 'hidden';
+  }
+  function unlockBodyScroll() {
+    if (_htmlOverflowBackup !== null) {
+      document.documentElement.style.overflow = _htmlOverflowBackup;
+    }
+    if (_bodyOverflowBackup !== null) {
+      document.body.style.overflow = _bodyOverflowBackup;
+    }
+    _htmlOverflowBackup = _bodyOverflowBackup = null;
+  }
+
   function init() {
     const overlay = document.getElementById('cxp-disc-overlay');
     if (!overlay) return;
@@ -78,10 +147,19 @@
     btn.disabled = !chk.checked;
     chk.addEventListener('change', () => { btn.disabled = !chk.checked; });
 
+    // Aggancia l'overlay alla visual viewport iOS PRIMA del primo paint
+    // utente e blocca lo scroll della pagina dietro: in questo modo il
+    // footer (checkbox + Accedi) è sempre dentro l'area visibile reale
+    // anche con toolbar Safari estesa o compatta dopo scroll.
+    const detachVV = bindVisualViewport(overlay);
+    lockBodyScroll();
+
     btn.addEventListener('click', () => {
       if (!chk.checked) return;
       markAccepted();
       setSiblingsInert(overlay, false);
+      detachVV();
+      unlockBodyScroll();
       overlay.remove();
       // Restituisce focus a un landmark sensato per screen reader.
       const h1 = document.querySelector('header h1, main h1, h1');
