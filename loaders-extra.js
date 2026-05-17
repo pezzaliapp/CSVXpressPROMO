@@ -99,6 +99,200 @@
     }));
   }
 
+  // ============================================================
+  // FILTRO ADDITIVO Famiglia/Categoria (NON tocca listino/app.js)
+  // ------------------------------------------------------------
+  // Mappa parallela codice -> { famiglie, categorie } costruita
+  // dal JSON Excel; valori multipli separati da "|". Quando la
+  // mappa è vuota (CSV o Excel senza colonne) i filtri restano
+  // nascosti e l'app si comporta esattamente come prima.
+  // ============================================================
+  let _famCatByCode = null;    // Map<codice, {famiglie, categorie}> o null
+  let _famUnique = [];          // [{name, count}, ...]
+  let _catUnique = [];
+  const _selectedFam = new Set();
+  const _selectedCat = new Set();
+  let _selectObserver = null;
+
+  function splitMulti(v) {
+    if (v == null) return [];
+    return String(v).split('|').map((s) => s.trim()).filter(Boolean);
+  }
+
+  function buildFamCatMap(json) {
+    if (!json || !json.length) return null;
+    const columns = Object.keys(json[0]);
+    const kCod = detectKey(columns, ['codice', 'code', 'sku', 'art']) || columns[0];
+    const kFam = detectKey(columns, ['famiglia', 'family']);
+    const kCat = detectKey(columns, ['categoria', 'category']);
+    if (!kFam && !kCat) return null;
+    const byCode = new Map();
+    const famCounts = new Map();
+    const catCounts = new Map();
+    json.forEach((row) => {
+      const cod = row[kCod] != null ? String(row[kCod]) : '';
+      if (!cod) return;
+      const famiglie = kFam ? splitMulti(row[kFam]) : [];
+      const categorie = kCat ? splitMulti(row[kCat]) : [];
+      byCode.set(cod, { famiglie, categorie });
+      famiglie.forEach((f) => famCounts.set(f, (famCounts.get(f) || 0) + 1));
+      categorie.forEach((c) => catCounts.set(c, (catCounts.get(c) || 0) + 1));
+    });
+    const collator = new Intl.Collator('it', { sensitivity: 'base' });
+    const toSorted = (m) => Array.from(m.entries())
+      .map(([name, count]) => ({ name, count }))
+      .sort((a, b) => collator.compare(a.name, b.name));
+    return {
+      byCode,
+      famiglie: toSorted(famCounts),
+      categorie: toSorted(catCounts)
+    };
+  }
+
+  function clearFamCat() {
+    _famCatByCode = null;
+    _famUnique = [];
+    _catUnique = [];
+    _selectedFam.clear();
+    _selectedCat.clear();
+    renderFilterUI();
+    applyFilterToSelect();
+  }
+
+  function setFamCat(result) {
+    if (!result || (!result.famiglie.length && !result.categorie.length)) {
+      clearFamCat();
+      return;
+    }
+    _famCatByCode = result.byCode;
+    _famUnique = result.famiglie;
+    _catUnique = result.categorie;
+    _selectedFam.clear();
+    _selectedCat.clear();
+    renderFilterUI();
+    applyFilterToSelect();
+  }
+
+  function cssSafeId(s) {
+    return String(s).replace(/[^a-z0-9_-]+/gi, '_').toLowerCase();
+  }
+
+  function updateCount(id, selected, total) {
+    const el = document.getElementById(id);
+    if (!el) return;
+    el.textContent = selected === 0 ? 'Tutte' : (selected + '/' + total);
+  }
+
+  function populateGroup(containerId, items, selectedSet, kind, countId) {
+    const c = document.getElementById(containerId);
+    if (!c) return;
+    c.innerHTML = '';
+    items.forEach((it) => {
+      const id = 'cxp-filt-' + kind + '-' + cssSafeId(it.name);
+      const label = document.createElement('label');
+      label.className = 'cxp-filter-opt';
+      label.htmlFor = id;
+      const cb = document.createElement('input');
+      cb.type = 'checkbox';
+      cb.id = id;
+      cb.value = it.name;
+      cb.checked = selectedSet.has(it.name);
+      cb.addEventListener('change', () => {
+        if (cb.checked) selectedSet.add(it.name); else selectedSet.delete(it.name);
+        updateCount(countId, selectedSet.size, items.length);
+        applyFilterToSelect();
+      });
+      const span = document.createElement('span');
+      span.textContent = it.name + ' (' + it.count + ')';
+      label.append(cb, span);
+      c.appendChild(label);
+    });
+  }
+
+  function renderFilterUI() {
+    const wrap = document.getElementById('cxp-filters');
+    if (!wrap) return;
+    const hasFam = _famUnique.length > 0;
+    const hasCat = _catUnique.length > 0;
+    const visible = hasFam || hasCat;
+    wrap.style.display = visible ? '' : 'none';
+    if (!visible) return;
+    const famGroup = document.getElementById('cxp-fam-group');
+    const catGroup = document.getElementById('cxp-cat-group');
+    if (famGroup) famGroup.style.display = hasFam ? '' : 'none';
+    if (catGroup) catGroup.style.display = hasCat ? '' : 'none';
+    populateGroup('cxp-fam-options', _famUnique, _selectedFam, 'fam', 'cxp-fam-count');
+    populateGroup('cxp-cat-options', _catUnique, _selectedCat, 'cat', 'cxp-cat-count');
+    updateCount('cxp-fam-count', _selectedFam.size, _famUnique.length);
+    updateCount('cxp-cat-count', _selectedCat.size, _catUnique.length);
+  }
+
+  function applyFilterToSelect() {
+    const sel = document.getElementById('listinoSelect');
+    if (!sel) return;
+    if (!_famCatByCode) {
+      Array.from(sel.options).forEach((opt) => {
+        opt.hidden = false;
+        opt.classList.remove('cxp-opt-hidden');
+      });
+      return;
+    }
+    const noFilter = _selectedFam.size === 0 && _selectedCat.size === 0;
+    Array.from(sel.options).forEach((opt) => {
+      if (noFilter) {
+        opt.hidden = false;
+        opt.classList.remove('cxp-opt-hidden');
+        return;
+      }
+      const entry = _famCatByCode.get(opt.value);
+      let ok = true;
+      if (_selectedFam.size > 0) {
+        ok = !!(entry && entry.famiglie.some((f) => _selectedFam.has(f)));
+      }
+      if (ok && _selectedCat.size > 0) {
+        ok = !!(entry && entry.categorie.some((c) => _selectedCat.has(c)));
+      }
+      opt.hidden = !ok;
+      opt.classList.toggle('cxp-opt-hidden', !ok);
+    });
+    const curOpt = sel.options[sel.selectedIndex];
+    if (curOpt && curOpt.hidden) {
+      const firstVisible = Array.from(sel.options).find((o) => !o.hidden);
+      sel.value = firstVisible ? firstVisible.value : '';
+    }
+  }
+
+  function setupSelectObserver() {
+    const sel = document.getElementById('listinoSelect');
+    if (!sel) return;
+    if (_selectObserver) _selectObserver.disconnect();
+    // Osserviamo solo childList: app.js fa innerHTML="" + appendChild;
+    // le nostre modifiche sono solo attributi (hidden/class) -> nessun loop.
+    _selectObserver = new MutationObserver(() => applyFilterToSelect());
+    _selectObserver.observe(sel, { childList: true });
+  }
+
+  function setupFilterUI() {
+    const reset = document.getElementById('cxp-filter-reset');
+    if (reset) {
+      reset.addEventListener('click', () => {
+        _selectedFam.clear();
+        _selectedCat.clear();
+        renderFilterUI();
+        applyFilterToSelect();
+      });
+    }
+    // CSV non porta colonne Famiglia/Categoria: ad ogni nuovo caricamento
+    // CSV (input file o ripristino da memoria) azzeriamo la mappa per
+    // evitare voci di filtro stantie. Non tocchiamo la logica CSV di app.js.
+    const csvIn = document.getElementById('csvFileInput');
+    if (csvIn) csvIn.addEventListener('change', () => clearFamCat());
+    const btnLoadSaved = document.getElementById('btnLoadSavedCSV');
+    if (btnLoadSaved) btnLoadSaved.addEventListener('click', () => clearFamCat());
+    renderFilterUI();
+    setupSelectObserver();
+  }
+
   function setStatus(msg, isError) {
     const el = document.getElementById('cxp-extra-status');
     if (!el) return;
@@ -121,6 +315,9 @@
       const json = window.XLSX.utils.sheet_to_json(sheet, { defval: '', raw: true });
       if (!json.length) throw new Error('Nessuna riga trovata');
       const rows = toCsvXpressRows(json);
+      // Mappa parallela Famiglia/Categoria (non passa per app.js). Se le
+      // colonne mancano -> null -> filtri restano nascosti (degradazione).
+      setFamCat(buildFamCatMap(json));
 
       // === Stesso effetto di handleCSVUpload, senza toccare app.js ===
       if (typeof normalizeListino !== 'function' || typeof aggiornaListinoSelect !== 'function') {
@@ -248,9 +445,14 @@
     });
   }
 
-  if (document.readyState === 'loading') {
-    document.addEventListener('DOMContentLoaded', bind);
-  } else {
+  function init() {
     bind();
+    setupFilterUI();
+  }
+
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', init);
+  } else {
+    init();
   }
 })();

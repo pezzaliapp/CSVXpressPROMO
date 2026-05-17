@@ -287,3 +287,93 @@
 .cxp-extra-loader { margin-top: 12px; }
 .cxp-extra-loader input[type="file"] { display: block; margin: 8px 0; }
 #cxp-extra-status { font-size: 13px; opacity: .85; }
+
+/* ---- Filtri Famiglia/Categoria (additivi, nascosti se non disponibili) ---- */
+.cxp-filters {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin: 8px 0 10px;
+  align-items: stretch;
+}
+.cxp-filter-group { flex: 1 1 200px; min-width: 0; }
+.cxp-filter-details {
+  border: 1px solid var(--cxp-border);
+  border-radius: 8px;
+  background: var(--cxp-surface);
+  overflow: hidden;
+}
+.cxp-filter-summary {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 8px;
+  padding: 8px 12px;
+  cursor: pointer;
+  font-size: 14px;
+  min-height: 40px;
+  list-style: none;
+  color: var(--cxp-text);
+}
+.cxp-filter-summary::-webkit-details-marker { display: none; }
+.cxp-filter-summary::after {
+  content: "▾";
+  font-size: 12px;
+  opacity: .6;
+  margin-left: 4px;
+}
+.cxp-filter-details[open] .cxp-filter-summary::after { content: "▴"; }
+.cxp-filter-count {
+  font-size: 12px;
+  padding: 2px 8px;
+  border-radius: 999px;
+  border: 1px solid var(--cxp-border);
+  background: var(--cxp-surface-2);
+  color: var(--cxp-text-muted);
+  white-space: nowrap;
+}
+.cxp-filter-options {
+  max-height: 240px;
+  overflow-y: auto;
+  padding: 6px;
+  border-top: 1px solid var(--cxp-border);
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  background: var(--cxp-surface-2);
+}
+.cxp-filter-opt {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 6px 8px;
+  border-radius: 6px;
+  font-size: 14px;
+  min-height: 36px;
+  color: var(--cxp-text);
+  cursor: pointer;
+}
+.cxp-filter-opt:hover { background: var(--cxp-surface); }
+.cxp-filter-opt input { margin: 0; flex: 0 0 auto; }
+.cxp-filter-opt span { flex: 1 1 auto; }
+.cxp-filter-reset {
+  flex: 0 0 auto;
+  min-height: 40px;
+  padding: 8px 14px;
+  border-radius: 8px;
+  border: 1px solid var(--cxp-border);
+  background: var(--cxp-surface-2);
+  color: var(--cxp-text);
+  cursor: pointer;
+  font-size: 14px;
+}
+.cxp-filter-reset:hover { border-color: var(--cxp-accent); }
+
+/* Option nascosta dal filtro (fallback al hidden attribute). */
+#listinoSelect .cxp-opt-hidden { display: none; }
+
+@media (max-width: 480px) {
+  .cxp-filters { gap: 6px; }
+  .cxp-filter-group { flex: 1 1 100%; }
+  .cxp-filter-reset { width: 100%; }
+}

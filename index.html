@@ -1,6 +1,6 @@
 <!DOCTYPE html>
 
-<html data-app="CSVXpressPROMO" data-ver="1.2.0" data-disc-ver="2026-05-17b" lang="it">
+<html data-app="CSVXpressPROMO" data-ver="1.4.0" data-disc-ver="2026-05-17b" lang="it">
 <head>
   <meta charset="utf-8"/>
   <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover"/>
@@ -119,6 +119,36 @@
 <h2>Filtra e Seleziona Articolo dal Listino</h2>
 <label for="searchListino">Cerca: </label>
 <input id="searchListino" placeholder="Inserisci codice o descrizione" type="text"/>
+
+<!-- ====== ADDITIVO: filtri Famiglia/Categoria (visibili solo se il
+     loader Excel rileva le colonne; CSV resta invariato). ====== -->
+<div class="cxp-filters" id="cxp-filters" style="display:none">
+  <div class="cxp-filter-group" id="cxp-fam-group">
+    <details class="cxp-filter-details">
+      <summary class="cxp-filter-summary">
+        <span>Famiglia</span>
+        <span class="cxp-filter-count" id="cxp-fam-count">Tutte</span>
+      </summary>
+      <div class="cxp-filter-options" id="cxp-fam-options"
+           role="group" aria-label="Filtra per famiglia"></div>
+    </details>
+  </div>
+  <div class="cxp-filter-group" id="cxp-cat-group">
+    <details class="cxp-filter-details">
+      <summary class="cxp-filter-summary">
+        <span>Categoria</span>
+        <span class="cxp-filter-count" id="cxp-cat-count">Tutte</span>
+      </summary>
+      <div class="cxp-filter-options" id="cxp-cat-options"
+           role="group" aria-label="Filtra per categoria"></div>
+    </details>
+  </div>
+  <button type="button" id="cxp-filter-reset" class="cxp-filter-reset">
+    Azzera filtri
+  </button>
+</div>
+<!-- ====== /ADDITIVO filtri ====== -->
+
 <select id="listinoSelect"></select>
 <button id="btnAddFromListino" onclick="aggiungiArticoloDaListino()">Aggiungi Articolo</button>
 </section>
