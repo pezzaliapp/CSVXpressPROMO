@@ -1,6 +1,6 @@
 <!DOCTYPE html>
 
-<html data-app="CSVXpressPROMO" data-ver="1.1.0" data-disc-ver="2026-05-17" lang="it">
+<html data-app="CSVXpressPROMO" data-ver="1.2.0" data-disc-ver="2026-05-17b" lang="it">
 <head>
   <meta charset="utf-8"/>
   <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover"/>
@@ -294,32 +294,46 @@
       <p><strong>Titolare del trattamento:</strong> Alessandro Pezzali —
         <a href="https://pezzaliapp.com" target="_blank" rel="noopener noreferrer">pezzaliapp.com</a>,
         contattabile tramite il sito.</p>
-      <p><strong>Dati trattati localmente.</strong> Tutti i dati operativi
-        inseriti, importati o generati nell'applicazione — listini CSV / Excel /
-        PDF, articoli, preventivi, promo locali, eventuale Personal Access
-        Token GitHub salvato nel pannello Admin — restano
-        <strong>esclusivamente sul dispositivo dell'utente</strong>
-        (IndexedDB e localStorage del browser). Tali dati non sono trasmessi
-        al Titolare né a terzi, non sono raccolti né profilati su server e non
-        lasciano il dispositivo se non per azione volontaria dell'utente
-        (es. condivisione via WhatsApp, esportazione TXT, sincronizzazione
-        manuale su GitHub tramite l'Admin). <strong>L'utente è titolare
-        autonomo dei dati di terzi che inserisce</strong> (anagrafiche clienti,
-        prezzi riservati, dati di contatto) e ne risponde nei confronti dei
-        relativi interessati.</p>
-      <p><strong>Strumenti di analisi di terze parti.</strong> L'applicazione,
-        in continuità con il progetto originale CSVXpressSmart, può includere
-        strumenti di analisi del traffico e dell'utilizzo —
-        <strong>Google Analytics 4</strong> (Google Ireland Ltd) e
-        <strong>Microsoft Clarity</strong> (Microsoft Ireland Operations Ltd) —
-        configurati, ove tecnicamente possibile, con anonimizzazione degli
-        identificativi e finalità statistico-aggregate. Tali strumenti possono
-        comportare il trasferimento di dati tecnici (IP troncato, tipologia di
-        dispositivo, interazioni anonime) verso paesi terzi sulla base delle
-        Clausole Contrattuali Standard adottate dai rispettivi fornitori.
-        Base giuridica: <strong>legittimo interesse del Titolare</strong> all'analisi
-        statistica del servizio (art. 6, par. 1, lett. f, GDPR). Proseguendo
-        nell'uso, l'utente dichiara di esserne informato.</p>
+      <p><strong>Modello privacy-first.</strong> L'applicazione opera
+        integralmente <strong>nel browser dell'utente</strong>, in assenza
+        di backend proprietario. Il Titolare non riceve, non archivia e non
+        elabora su propri server alcun dato operativo dell'utente.</p>
+      <p><strong>Dati trattati esclusivamente in locale.</strong> Tutti i
+        dati operativi inseriti, importati o generati nell'applicazione —
+        listini CSV / Excel / PDF, articoli, preventivi, promo locali,
+        configurazioni e impostazioni d'uso — sono salvati
+        <strong>esclusivamente sul dispositivo dell'utente</strong>,
+        all'interno di IndexedDB e di localStorage del browser. Tali dati
+        non sono trasmessi al Titolare né a terzi, non sono raccolti, non
+        sono profilati e non sono condivisi. I dati lasciano il dispositivo
+        <strong>esclusivamente per azione volontaria dell'utente</strong>
+        (a titolo esemplificativo: condivisione via WhatsApp, esportazione
+        TXT, sincronizzazione manuale su GitHub tramite il pannello Admin).</p>
+      <p><strong>Credenziali e token.</strong> Eventuali credenziali, in
+        particolare il Personal Access Token GitHub configurabile dal
+        pannello Admin, sono memorizzate <strong>esclusivamente in locale</strong>
+        sul dispositivo dell'utente, non sono accessibili al Titolare e
+        restano sotto l'esclusiva custodia e responsabilità dell'utente,
+        che è tenuto ad adottare misure idonee di protezione del proprio
+        dispositivo.</p>
+      <p><strong>Assenza di strumenti di tracciamento e profilazione.</strong>
+        L'applicazione <strong>non utilizza cookie di profilazione</strong>;
+        <strong>non utilizza strumenti di analisi o tracciamento di terze
+        parti</strong> — in particolare <strong>non utilizza Google Analytics,
+        non utilizza Microsoft Clarity</strong>, né pixel pubblicitari, tag
+        manager o sistemi di telemetria comportamentale; <strong>non effettua
+        trasferimenti di dati personali verso Paesi terzi extra UE</strong>.
+        Le sole risorse caricate da rete sono librerie open source statiche
+        servite da CDN pubblici (PapaParse, SheetJS, jsPDF, pdf.js),
+        necessarie al funzionamento tecnico del Software e prive di logiche
+        di analisi o profilazione dell'utente.</p>
+      <p><strong>Dati di terzi inseriti dall'utente.</strong> L'utente è
+        <strong>titolare autonomo del trattamento</strong> dei dati di
+        terzi che inserisce nell'applicazione (anagrafiche clienti, prezzi
+        riservati, recapiti, listini, condizioni commerciali) e risponde
+        in via esclusiva nei confronti dei relativi interessati per il
+        rispetto degli obblighi GDPR a essi riferibili (informativa, base
+        giuridica, conservazione, sicurezza).</p>
       <p><strong>Diritti dell'interessato.</strong> In qualsiasi momento è
         possibile esercitare i diritti previsti dagli artt. 15-22 GDPR
         (accesso, rettifica, cancellazione, limitazione, opposizione,
@@ -328,8 +342,9 @@
         È altresì possibile presentare reclamo all'Autorità Garante per la
         protezione dei dati personali (<a href="https://www.garanteprivacy.it"
         target="_blank" rel="noopener noreferrer">garanteprivacy.it</a>).
-        Per cancellare i dati locali è sufficiente svuotare l'archiviazione
-        del sito dal browser/dispositivo.</p>
+        Per cancellare integralmente i dati gestiti dall'applicazione è
+        sufficiente <strong>svuotare l'archiviazione del sito</strong> dal
+        browser/dispositivo (cache, IndexedDB, localStorage).</p>
 
       <h3>7. Proprietà intellettuale</h3>
       <p>Il software, il codice sorgente, la grafica, i marchi e i contenuti
@@ -352,7 +367,7 @@
       <p style="margin-top:18px;">© 2026 <strong>pezzaliapp — Alessandro Pezzali</strong>.
         Tutti i diritti riservati.
         <a href="https://pezzaliapp.com" target="_blank" rel="noopener noreferrer">pezzaliapp.com</a></p>
-      <p style="opacity:.7;font-size:12.5px;">Versione disclaimer: 2026-05-17.</p>
+      <p style="opacity:.7;font-size:12.5px;">Versione disclaimer: 2026-05-17b.</p>
     </div>
     <footer class="cxp-disc-footer">
       <label class="cxp-disc-check" for="cxp-disc-agree">

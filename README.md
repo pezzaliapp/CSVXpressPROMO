@@ -91,9 +91,10 @@ responsabilità e **informativa GDPR**. Il testo integrale è in
 - destinato a **uso professionale B2B**;
 - **tutti i dati operativi restano sul dispositivo** (IndexedDB /
   localStorage): non sono trasmessi all'autore né a terzi;
-- in continuità con il progetto originale CSVXpressSmart possono essere
-  presenti strumenti di analisi anonimizzata (Google Analytics 4,
-  Microsoft Clarity) basati su legittimo interesse (art. 6.1.f GDPR);
+- **nessun tracker, nessuna profilazione**: l'app non utilizza Google
+  Analytics, Microsoft Clarity, pixel pubblicitari o tag manager;
+  nessun cookie di profilazione; nessun trasferimento di dati verso
+  Paesi extra UE;
 - titolare del trattamento: Alessandro Pezzali — https://pezzaliapp.com
   (per i diritti artt. 15-22 GDPR e per ogni contatto).
 
@@ -103,6 +104,11 @@ Quando il testo del disclaimer viene aggiornato (campo
 
 ## Changelog
 
+- **1.2.0** (2026-05-17) — Privacy: rimossi tutti i riferimenti a
+  strumenti di analisi di terze parti dall'informativa GDPR;
+  esplicitata l'assenza di Google Analytics, Microsoft Clarity, cookie
+  di profilazione e trasferimenti extra UE. Bump `DISCLAIMER_VERSION`
+  (riaccettazione richiesta) e bump cache service worker.
 - **1.1.0** (2026-05-17) — Disclaimer/gate di accesso con informativa
   GDPR, fix parsing numeri italiani nei loader Excel, refresh cache
   service worker.

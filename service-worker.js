@@ -1,7 +1,7 @@
 // service-worker.js
 // CSVXpressPROMO — Service Worker
 // Versione: bumpare SEMPRE quando cambiano asset
-const CACHE_VERSION = 'v1.1.0';
+const CACHE_VERSION = 'v1.2.0';
 const CACHE_NAME = `csvxpresspromo-${CACHE_VERSION}`;
 
 // Asset locali da cacheare (app shell)

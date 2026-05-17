@@ -21,7 +21,7 @@
   const STORAGE_KEY = 'cxp-disc-accepted';
   const ROOT_ATTR   = 'data-disc-accepted';
   const DISCLAIMER_VERSION =
-    document.documentElement.getAttribute('data-disc-ver') || '2026-05-17';
+    document.documentElement.getAttribute('data-disc-ver') || '2026-05-17b';
 
   function alreadyAccepted() {
     try { return localStorage.getItem(STORAGE_KEY) === DISCLAIMER_VERSION; }
