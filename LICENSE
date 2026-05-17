@@ -1,21 +1,85 @@
-MIT License
+COPYRIGHT E LICENZA D'USO PROPRIETARIA — CSVXpressPROMO
 
-Copyright (c) 2026 pezzaliapp
+© 2026 Alessandro Pezzali — pezzaliapp. Tutti i diritti riservati.
+https://pezzaliapp.com
 
-Permission is hereby granted, free of charge, to any person obtaining a copy
-of this software and associated documentation files (the "Software"), to deal
-in the Software without restriction, including without limitation the rights
-to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
-copies of the Software, and to permit persons to whom the Software is
-furnished to do so, subject to the following conditions:
+CSVXpressPROMO ("il Software") è opera dell'ingegno protetta dal diritto
+d'autore e dai trattati internazionali sulla proprietà intellettuale. Il
+codice sorgente, gli stili, le icone, i contenuti grafici e testuali del
+Software appartengono in via esclusiva al Titolare sopra indicato. La
+presente licenza concede a chi utilizza il Software un diritto d'uso
+limitato secondo i termini che seguono.
 
-The above copyright notice and this permission notice shall be included in all
-copies or substantial portions of the Software.
+1. CONCESSIONE D'USO
+   Il Titolare concede all'Utente finale un diritto personale, non
+   esclusivo, non trasferibile e revocabile di utilizzare il Software
+   "così com'è", nella forma resa pubblicamente disponibile, per
+   finalità professionali interne (a titolo esemplificativo: generazione
+   di preventivi commerciali a uso del proprio business). L'uso del
+   Software è subordinato all'accettazione del disclaimer in-app, che
+   forma parte integrante delle presenti condizioni.
 
-THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
-IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
-FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
-AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
-LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
-OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
-SOFTWARE.
+2. DIVIETI
+   Salvo previa autorizzazione scritta del Titolare, all'Utente è
+   VIETATO:
+   a) copiare, riprodurre o ridistribuire il Software, in tutto o in
+      parte, in qualsiasi forma o supporto, anche a titolo gratuito;
+   b) modificare il Software, crearne opere derivate, traduzioni,
+      adattamenti, port o fork pubblicamente accessibili;
+   c) effettuare reverse engineering, decompilazione, disassemblaggio
+      o tentativi di ricostruire il codice sorgente oltre quanto
+      eventualmente reso pubblico dal Titolare;
+   d) rivendere, concedere in sublicenza, noleggiare, prestare o
+      mettere altrimenti a disposizione di terzi il Software a fini
+      commerciali;
+   e) rimuovere, alterare o oscurare avvisi di copyright, marchi,
+      attribuzioni o indicazioni di paternità contenute nel Software.
+
+   La pubblicazione del codice sorgente in un repository pubblico, ai
+   soli fini di trasparenza e ispezione, NON costituisce rinuncia ad
+   alcuno dei diritti riservati dal presente paragrafo.
+
+3. NESSUNA GARANZIA
+   Il Software è fornito "così com'è" (as is) e "come disponibile"
+   (as available), senza garanzia di alcun tipo, espressa o implicita,
+   ivi incluse — a titolo esemplificativo — garanzie di
+   commerciabilità, idoneità a uno scopo particolare, accuratezza dei
+   calcoli, continuità del servizio e assenza di errori.
+
+4. ESCLUSIONE DI RESPONSABILITÀ
+   Nei limiti massimi consentiti dalla legge applicabile, il Titolare
+   non risponde di alcun danno diretto, indiretto, incidentale,
+   speciale, consequenziale o punitivo — ivi inclusi mancato guadagno,
+   perdita di ordini, perdita di clientela, perdita o alterazione di
+   dati, interruzione dell'attività — derivante dall'uso o
+   dall'impossibilità d'uso del Software. Il dettaglio dell'esonero,
+   l'obbligo di verifica da parte dell'Utente e l'informativa privacy
+   (GDPR — Reg. UE 2016/679) sono esposti nel disclaimer in-app
+   mostrato all'avvio dell'applicazione, che forma parte integrante
+   della presente licenza.
+
+5. LIBRERIE DI TERZE PARTI
+   Il Software carica a runtime, da CDN pubblici, alcune librerie open
+   source che NON sono coperte dalla presente licenza e restano
+   soggette alle rispettive licenze d'origine:
+     - PapaParse  — MIT       (https://github.com/mholt/PapaParse)
+     - SheetJS    — Apache-2.0 (https://github.com/SheetJS/sheetjs)
+     - jsPDF      — MIT       (https://github.com/parallax/jsPDF)
+     - pdf.js     — Apache-2.0 (https://github.com/mozilla/pdf.js)
+   Le icone, gli stili e i contenuti grafici originali del Software
+   rimangono di esclusiva proprietà del Titolare.
+
+6. RISOLUZIONE
+   La presente licenza è risolta automaticamente in caso di violazione
+   anche di una sola delle disposizioni che precedono. In caso di
+   risoluzione l'Utente è tenuto a cessare immediatamente ogni uso del
+   Software e a rimuoverne ogni copia eventualmente acquisita.
+
+7. LEGGE APPLICABILE E FORO COMPETENTE
+   La presente licenza è regolata dalla legge italiana. Per ogni
+   controversia è competente in via esclusiva il Foro di residenza
+   del Titolare, salvo le norme inderogabili di legge a tutela del
+   consumatore ove applicabili.
+
+Per richieste di autorizzazione, licenze commerciali, partnership o
+contatti: https://pezzaliapp.com

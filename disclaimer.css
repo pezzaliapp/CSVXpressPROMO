@@ -1,0 +1,168 @@
+/* ============================================================
+   CSVXpressPROMO — disclaimer.css
+   Overlay gate di accesso. Tutte le classi sono scoped .cxp-disc-
+   per non collidere con CSVXpress originale.
+   ============================================================ */
+
+.cxp-disc-overlay {
+  position: fixed;
+  inset: 0;
+  z-index: 2147483647;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 16px;
+  background: rgba(11, 15, 20, 0.78);
+  -webkit-backdrop-filter: blur(2px);
+  backdrop-filter: blur(2px);
+  font: 14.5px/1.55 -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto,
+        "Helvetica Neue", Arial, sans-serif;
+  color: #14202b;
+}
+
+/* Inline guard in <head> imposta data-disc-accepted="1" se la
+   versione salvata combacia: in tal caso l'overlay non viene
+   mai mostrato (no flash). */
+html[data-disc-accepted="1"] .cxp-disc-overlay { display: none; }
+
+.cxp-disc-dialog {
+  width: 100%;
+  max-width: 760px;
+  max-height: 92vh;
+  background: #ffffff;
+  color: inherit;
+  border-radius: 14px;
+  box-shadow: 0 18px 60px rgba(0, 0, 0, 0.45);
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+}
+
+.cxp-disc-header {
+  padding: 18px 22px 10px;
+  border-bottom: 1px solid #e6ecf2;
+}
+.cxp-disc-title {
+  margin: 0;
+  font-size: 18px;
+  font-weight: 700;
+  letter-spacing: 0.1px;
+}
+.cxp-disc-sub {
+  margin: 4px 0 0;
+  font-size: 12.5px;
+  color: #6a7787;
+}
+
+.cxp-disc-body {
+  flex: 1 1 auto;
+  overflow-y: auto;
+  -webkit-overflow-scrolling: touch;
+  padding: 14px 22px 6px;
+  scrollbar-gutter: stable;
+}
+.cxp-disc-body h3 {
+  margin: 14px 0 4px;
+  font-size: 14.5px;
+  color: #0b2545;
+  letter-spacing: 0.2px;
+}
+.cxp-disc-body h3:first-of-type { margin-top: 4px; }
+.cxp-disc-body p {
+  margin: 0 0 10px;
+}
+.cxp-disc-body a {
+  color: #0b65d8;
+  text-decoration: underline;
+  text-underline-offset: 2px;
+}
+.cxp-disc-body strong { font-weight: 700; }
+
+.cxp-disc-footer {
+  padding: 12px 22px 16px;
+  border-top: 1px solid #e6ecf2;
+  background: #f6f9fc;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.cxp-disc-check {
+  display: flex;
+  align-items: flex-start;
+  gap: 10px;
+  font-size: 14px;
+  line-height: 1.45;
+  cursor: pointer;
+  user-select: none;
+}
+.cxp-disc-check input[type="checkbox"] {
+  flex: 0 0 auto;
+  width: 18px;
+  height: 18px;
+  margin-top: 2px;
+  accent-color: #0b65d8;
+}
+
+.cxp-disc-actions {
+  display: flex;
+  justify-content: flex-end;
+  gap: 10px;
+}
+
+.cxp-disc-btn {
+  appearance: none;
+  -webkit-appearance: none;
+  border: 1px solid #0b65d8;
+  background: #0b65d8;
+  color: #fff;
+  font-weight: 600;
+  font-size: 15px;
+  padding: 11px 22px;
+  border-radius: 10px;
+  min-height: 44px;
+  cursor: pointer;
+  transition: background-color 0.15s ease, border-color 0.15s ease, opacity 0.15s ease;
+}
+.cxp-disc-btn:not(:disabled):hover { background: #094da6; border-color: #094da6; }
+.cxp-disc-btn:focus-visible {
+  outline: 2px solid #ffc107;
+  outline-offset: 2px;
+}
+.cxp-disc-btn:disabled {
+  background: #b9c8dd;
+  border-color: #b9c8dd;
+  color: #f3f6fa;
+  cursor: not-allowed;
+}
+
+/* --- Dark mode --- */
+@media (prefers-color-scheme: dark) {
+  .cxp-disc-overlay { color: #e5edf5; background: rgba(3, 7, 12, 0.82); }
+  .cxp-disc-dialog { background: #131a23; box-shadow: 0 18px 60px rgba(0,0,0,0.6); }
+  .cxp-disc-header { border-bottom-color: #243043; }
+  .cxp-disc-sub { color: #93a2b3; }
+  .cxp-disc-body h3 { color: #8ab4ff; }
+  .cxp-disc-body a { color: #6ea8ff; }
+  .cxp-disc-footer { background: #0d141c; border-top-color: #243043; }
+  .cxp-disc-btn { background: #2675ee; border-color: #2675ee; }
+  .cxp-disc-btn:not(:disabled):hover { background: #1a60cf; border-color: #1a60cf; }
+  .cxp-disc-btn:disabled { background: #2a3a52; border-color: #2a3a52; color: #6f7e91; }
+}
+
+/* --- Smartphone --- */
+@media (max-width: 540px) {
+  .cxp-disc-overlay { padding: 8px; }
+  .cxp-disc-dialog { max-height: 96vh; border-radius: 12px; }
+  .cxp-disc-header { padding: 14px 14px 6px; }
+  .cxp-disc-title { font-size: 17px; }
+  .cxp-disc-body { padding: 12px 14px 4px; font-size: 14px; }
+  .cxp-disc-footer { padding: 10px 14px 12px; }
+  .cxp-disc-btn { width: 100%; padding: 12px 18px; font-size: 15.5px; }
+  .cxp-disc-actions { flex-direction: column; }
+}
+
+/* Riduce le animazioni se l'utente lo richiede */
+@media (prefers-reduced-motion: reduce) {
+  .cxp-disc-btn { transition: none; }
+}

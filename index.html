@@ -1,6 +1,6 @@
 <!DOCTYPE html>
 
-<html data-app="CSVXpressPROMO" data-ver="1.0.0" lang="it">
+<html data-app="CSVXpressPROMO" data-ver="1.1.0" data-disc-ver="2026-05-17" lang="it">
 <head>
   <meta charset="utf-8"/>
   <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover"/>
@@ -15,6 +15,23 @@
   <link rel="stylesheet" href="style.mobile.cards.rev.v3.css"/>
   <!-- Stili scoped PROMO (prefisso .cxp-, nessuna collisione) -->
   <link rel="stylesheet" href="promo.css"/>
+  <!-- Disclaimer / gate di accesso (additivo, scoped .cxp-disc-) -->
+  <link rel="stylesheet" href="disclaimer.css"/>
+
+  <!-- Anti-flash guard: se la versione del disclaimer salvata in
+       localStorage combacia con data-disc-ver, marca <html> prima del
+       rendering del body. Il CSS nasconde l'overlay quando l'attributo
+       è impostato, evitando il flash per gli utenti che hanno già accettato. -->
+  <script>
+    (function () {
+      try {
+        var v = document.documentElement.getAttribute('data-disc-ver');
+        if (v && localStorage.getItem('cxp-disc-accepted') === v) {
+          document.documentElement.setAttribute('data-disc-accepted', '1');
+        }
+      } catch (_) { /* localStorage non disponibile: mostra disclaimer */ }
+    })();
+  </script>
 
   <style>
     .col-hidden{display:none !important}
@@ -211,8 +228,153 @@
 
 <div class="cxp-toast-wrap" id="cxp-toasts" aria-live="polite" aria-atomic="false"></div>
 
+<!-- ====== ADDITIVO: disclaimer / gate di accesso ======
+     Markup visibile di default; nascosto via CSS quando l'inline guard
+     in <head> ha impostato data-disc-accepted="1" (utente che ha già
+     accettato la versione corrente). -->
+<div class="cxp-disc-overlay" id="cxp-disc-overlay"
+     role="dialog" aria-modal="true"
+     aria-labelledby="cxp-disc-title" aria-describedby="cxp-disc-body">
+  <div class="cxp-disc-dialog">
+    <header class="cxp-disc-header">
+      <h2 class="cxp-disc-title" id="cxp-disc-title">Disclaimer e informativa d'uso</h2>
+      <p class="cxp-disc-sub">CSVXpressPROMO — versione disclaimer 2026-05-17</p>
+    </header>
+    <div class="cxp-disc-body" id="cxp-disc-body" tabindex="0">
+      <p>Benvenuto in <strong>CSVXpressPROMO</strong>. Prima di utilizzare
+        l'applicazione legga con attenzione quanto segue. L'accesso e l'uso
+        del software implicano l'accettazione integrale dei termini esposti.</p>
+
+      <h3>1. Natura del software e assenza di garanzie</h3>
+      <p>CSVXpressPROMO è uno strumento operativo per la generazione di
+        preventivi commerciali, fornito <strong>"così com'è" (as is)</strong> e
+        <strong>"come disponibile" (as available)</strong>, senza garanzie di
+        alcun tipo, espresse o implicite, ivi incluse — a titolo
+        esemplificativo — le garanzie di commerciabilità, idoneità a uno
+        scopo particolare, accuratezza dei calcoli, continuità del servizio e
+        assenza di errori. Nei limiti massimi consentiti dalla legge
+        applicabile, l'Autore non assume alcuna obbligazione di manutenzione,
+        aggiornamento o correzione.</p>
+
+      <h3>2. Esonero e limitazione di responsabilità</h3>
+      <p>Nella misura massima consentita dalla legge, l'Autore declina ogni
+        responsabilità per danni diretti, indiretti, incidentali, speciali,
+        consequenziali o punitivi — ivi inclusi mancato guadagno, perdita di
+        ordini, perdita di clientela, danno reputazionale o di immagine,
+        perdita o alterazione di dati, interruzione dell'attività — derivanti
+        o connessi all'uso, all'impossibilità d'uso, all'uso errato o improprio
+        dell'applicazione, ovvero a errori, imprecisioni o malfunzionamenti
+        nei calcoli, nei prezzi, negli sconti, nei totali e nei documenti
+        generati.</p>
+
+      <h3>3. Obbligo di verifica da parte dell'utente</h3>
+      <p>L'utente si impegna a <strong>verificare sempre</strong>, prima di
+        qualsiasi uso commerciale, contrattuale o di rilevanza esterna,
+        l'esattezza di prezzi, sconti, margini, totali, condizioni e documenti
+        generati dall'applicazione. L'invio di un preventivo, di un ordine o
+        di altra comunicazione a terzi è atto autonomo dell'utente, di cui
+        l'utente assume in via esclusiva ogni responsabilità.</p>
+
+      <h3>4. Aggiornamenti, modifiche, lavori in corso</h3>
+      <p>L'applicazione è in costante evoluzione: funzionalità, interfaccia,
+        calcoli, formati di esportazione e contenuti possono essere modificati,
+        sospesi o rimossi <strong>in qualsiasi momento e senza preavviso</strong>.
+        L'Autore si riserva il diritto di pubblicare aggiornamenti, migrazioni
+        di dati locali e nuove versioni che possono produrre risultati
+        differenti rispetto alle versioni precedenti.</p>
+
+      <h3>5. Ambito d'uso professionale (B2B)</h3>
+      <p>L'applicazione è destinata a utenza <strong>professionale</strong>,
+        nell'ambito di attività commerciali, di lavoro autonomo o di impresa.
+        Non è destinata né adatta a consumatori finali ai sensi del D.lgs.
+        206/2005 (Codice del Consumo). L'utilizzo in contesti non professionali
+        avviene a esclusivo rischio dell'utente.</p>
+
+      <h3>6. Informativa sulla protezione dei dati (GDPR — Reg. UE 2016/679)</h3>
+      <p><strong>Titolare del trattamento:</strong> Alessandro Pezzali —
+        <a href="https://pezzaliapp.com" target="_blank" rel="noopener noreferrer">pezzaliapp.com</a>,
+        contattabile tramite il sito.</p>
+      <p><strong>Dati trattati localmente.</strong> Tutti i dati operativi
+        inseriti, importati o generati nell'applicazione — listini CSV / Excel /
+        PDF, articoli, preventivi, promo locali, eventuale Personal Access
+        Token GitHub salvato nel pannello Admin — restano
+        <strong>esclusivamente sul dispositivo dell'utente</strong>
+        (IndexedDB e localStorage del browser). Tali dati non sono trasmessi
+        al Titolare né a terzi, non sono raccolti né profilati su server e non
+        lasciano il dispositivo se non per azione volontaria dell'utente
+        (es. condivisione via WhatsApp, esportazione TXT, sincronizzazione
+        manuale su GitHub tramite l'Admin). <strong>L'utente è titolare
+        autonomo dei dati di terzi che inserisce</strong> (anagrafiche clienti,
+        prezzi riservati, dati di contatto) e ne risponde nei confronti dei
+        relativi interessati.</p>
+      <p><strong>Strumenti di analisi di terze parti.</strong> L'applicazione,
+        in continuità con il progetto originale CSVXpressSmart, può includere
+        strumenti di analisi del traffico e dell'utilizzo —
+        <strong>Google Analytics 4</strong> (Google Ireland Ltd) e
+        <strong>Microsoft Clarity</strong> (Microsoft Ireland Operations Ltd) —
+        configurati, ove tecnicamente possibile, con anonimizzazione degli
+        identificativi e finalità statistico-aggregate. Tali strumenti possono
+        comportare il trasferimento di dati tecnici (IP troncato, tipologia di
+        dispositivo, interazioni anonime) verso paesi terzi sulla base delle
+        Clausole Contrattuali Standard adottate dai rispettivi fornitori.
+        Base giuridica: <strong>legittimo interesse del Titolare</strong> all'analisi
+        statistica del servizio (art. 6, par. 1, lett. f, GDPR). Proseguendo
+        nell'uso, l'utente dichiara di esserne informato.</p>
+      <p><strong>Diritti dell'interessato.</strong> In qualsiasi momento è
+        possibile esercitare i diritti previsti dagli artt. 15-22 GDPR
+        (accesso, rettifica, cancellazione, limitazione, opposizione,
+        portabilità) scrivendo al Titolare tramite
+        <a href="https://pezzaliapp.com" target="_blank" rel="noopener noreferrer">pezzaliapp.com</a>.
+        È altresì possibile presentare reclamo all'Autorità Garante per la
+        protezione dei dati personali (<a href="https://www.garanteprivacy.it"
+        target="_blank" rel="noopener noreferrer">garanteprivacy.it</a>).
+        Per cancellare i dati locali è sufficiente svuotare l'archiviazione
+        del sito dal browser/dispositivo.</p>
+
+      <h3>7. Proprietà intellettuale</h3>
+      <p>Il software, il codice sorgente, la grafica, i marchi e i contenuti
+        sono protetti dalle norme su diritto d'autore e proprietà intellettuale.
+        È vietata ogni redistribuzione, modifica non autorizzata, decompilazione
+        o reverse engineering al di fuori di quanto consentito dalla licenza
+        pubblicata nel repository ufficiale del progetto.</p>
+
+      <h3>8. Legge applicabile e foro competente</h3>
+      <p>Il presente disclaimer e l'uso dell'applicazione sono regolati dalla
+        <strong>legge italiana</strong>. Per ogni controversia è competente in
+        via esclusiva il <strong>Foro di residenza del Titolare</strong>, salvo
+        le norme inderogabili di legge a tutela del consumatore ove applicabili.</p>
+
+      <h3>9. Modifiche al presente disclaimer</h3>
+      <p>Il presente testo può essere aggiornato in qualsiasi momento. A ogni
+        modifica sostanziale ne verrà richiesta la riaccettazione. La versione
+        corrente è identificata dalla data riportata in calce e nell'intestazione.</p>
+
+      <p style="margin-top:18px;">© 2026 <strong>pezzaliapp — Alessandro Pezzali</strong>.
+        Tutti i diritti riservati.
+        <a href="https://pezzaliapp.com" target="_blank" rel="noopener noreferrer">pezzaliapp.com</a></p>
+      <p style="opacity:.7;font-size:12.5px;">Versione disclaimer: 2026-05-17.</p>
+    </div>
+    <footer class="cxp-disc-footer">
+      <label class="cxp-disc-check" for="cxp-disc-agree">
+        <input type="checkbox" id="cxp-disc-agree"/>
+        <span>Dichiaro di aver letto, compreso e accettato integralmente il
+          disclaimer, l'esonero di responsabilità e l'informativa privacy
+          sopra riportati, e mi impegno a verificare ogni risultato generato
+          prima di qualsiasi uso commerciale.</span>
+      </label>
+      <div class="cxp-disc-actions">
+        <button type="button" class="cxp-disc-btn" id="cxp-disc-accept" disabled>Accedi</button>
+      </div>
+    </footer>
+  </div>
+</div>
+<!-- ====== /ADDITIVO disclaimer ====== -->
+
 <!-- Librerie necessarie -->
 <script defer="" src="https://cdnjs.cloudflare.com/ajax/libs/PapaParse/5.3.2/papaparse.min.js"></script>
+
+<!-- Disclaimer (caricato prima di app.js: deve poter bloccare interazioni) -->
+<script defer="" src="disclaimer.js"></script>
 
 <!-- App CSVXpress — INVARIATA (motore di calcolo, inserimento verticale) -->
 <script defer="" src="app.js"></script>
